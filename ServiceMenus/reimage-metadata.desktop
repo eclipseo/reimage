@@ -16,6 +16,8 @@
 # 	You should have received a copy of the GNU General Public License
 # 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 
 [Desktop Entry]
 Actions=rfe;rff;_SEPARATOR_;sffe;sffn;_SEPARATOR_;seff;sefn;_SEPARATOR_;add_comment;view_metadata;extract_metadata;_SEPARATOR_;del_comment;del_exif;del_iptc;del_xmp;del_all;_SEPARATOR_;tfe;
