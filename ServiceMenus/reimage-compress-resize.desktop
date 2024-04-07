@@ -18,7 +18,7 @@
 #
 
 [Desktop Entry]
-Actions=progressive;optimize;_SEPARATOR_;compress_50;compress_70;compress_75;compress_80;compress_90;custom_compress;_SEPARATOR_;resize_25;resize_50;resize_75;_SEPARATOR_;300x225;600x450;800x600;1024x768;1200x900;1400x1050;1920x1080;custom_resize;_SEPARATOR_;
+Actions=progressive;optimize;_SEPARATOR_;compress_50;compress_70;compress_75;compress_80;compress_90;custom_compress;_SEPARATOR_;resize_25;resize_33;resize_50;resize_67;resize_75;_SEPARATOR_;320x240;800x600;1024x768;1200x900;1400x1050;1920x1080;1920x1200;2560x1080;2560x1440;2560x1600;3440x1440;3840x2160;5120x2160;custom_resize;_SEPARATOR_;
 MimeType=image/*
 Name=ReImage compress and resize service menu
 ServiceTypes=KonqPopupMenu/Plugin,image/*
@@ -85,11 +85,23 @@ Icon=image-resize-symbolic
 Name=Resize at 25%
 Name[it]=Ridimensiona al 25%
 
+[Desktop Action resize_33]
+Exec=reimage-kdialog resize 33% %F
+Icon=image-resize-symbolic
+Name=Resize at 33%
+Name[it]=Ridimensiona al 33%
+
 [Desktop Action resize_50]
 Exec=reimage-kdialog resize 50% %F
 Icon=image-resize-symbolic
 Name=Resize at 50%
 Name[it]=Ridimensiona al 50%
+
+[Desktop Action resize_67]
+Exec=reimage-kdialog resize 67% %F
+Icon=image-resize-symbolic
+Name=Resize at 33%
+Name[it]=Ridimensiona al 67%
 
 [Desktop Action resize_75]
 Exec=reimage-kdialog resize 75% %F
@@ -99,17 +111,11 @@ Name[it]=Ridimensiona al 75%
 
 ################################################################################
 
-[Desktop Action 300x225]
-Exec=reimage-kdialog resize 300x225 %F
+[Desktop Action 320x240]
+Exec=reimage-kdialog resize 320x240 %F
 Icon=image-resize-symbolic
-Name=Resize at 300x225 px
-Name[it]=Ridimensiona a 300x225 px
-
-[Desktop Action 600x450]
-Exec=reimage-kdialog resize 600x450 %F
-Icon=image-resize-symbolic
-Name=Resize at 600x450 px
-Name[it]=Ridimensiona a 600x450 px
+Name=Resize at 320x240 px
+Name[it]=Ridimensiona a 320x240 px
 
 [Desktop Action 640x480]
 Exec=reimage-kdialog resize 640x480 %F
@@ -146,6 +152,48 @@ Exec=reimage-kdialog resize 1920x1080 %F
 Icon=image-resize-symbolic
 Name=Resize at 1920x1080 px
 Name[it]=Ridimensiona a 1920x1080 px
+
+[Desktop Action 1920x1200]
+Exec=reimage-kdialog resize 1920x1200 %F
+Icon=image-resize-symbolic
+Name=Resize at 1920x1200 px
+Name[it]=Ridimensiona a 1920x1200 px
+
+[Desktop Action 2560x1080]
+Exec=reimage-kdialog resize 2560x1080 %F
+Icon=image-resize-symbolic
+Name=Resize at 2560x1080 px
+Name[it]=Ridimensiona a 2560x1080 px
+
+[Desktop Action 2560x1440]
+Exec=reimage-kdialog resize 2560x1440 %F
+Icon=image-resize-symbolic
+Name=Resize at 2560x1440 px
+Name[it]=Ridimensiona a 2560x1440 px
+
+[Desktop Action 2560x1600]
+Exec=reimage-kdialog resize 2560x1600 %F
+Icon=image-resize-symbolic
+Name=Resize at 2560x1600 px
+Name[it]=Ridimensiona a 2560x1600 px
+
+[Desktop Action 3440x1440]
+Exec=reimage-kdialog resize 3440x1440 %F
+Icon=image-resize-symbolic
+Name=Resize at 3440x1440 px
+Name[it]=Ridimensiona a 3440x1440 px
+
+[Desktop Action 3840x2160]
+Exec=reimage-kdialog resize 3840x2160 %F
+Icon=image-resize-symbolic
+Name=Resize at 3840x2160 px
+Name[it]=Ridimensiona a 3840x2160 px
+
+[Desktop Action 5120x2160]
+Exec=reimage-kdialog resize 5120x2160 %F
+Icon=image-resize-symbolic
+Name=Resize at 5120x2160 px
+Name[it]=Ridimensiona a 5120x2160 px
 
 ################################################################################
 
