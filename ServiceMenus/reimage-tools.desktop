@@ -18,7 +18,7 @@
 #
 
 [Desktop Entry]
-Actions=agif;append_right;_SEPARATOR_;gray;sepia;transparent2color;_SEPARATOR_;border;border_transparent;shadow;_SEPARATOR_;
+Actions=agif;apng;avif;jxl;heic;webp;append_right;_SEPARATOR_;gray;sepia;transparent2color;_SEPARATOR_;border;border_transparent;shadow;_SEPARATOR_;
 MimeType=image/*
 Name=ReImage tools service menu
 ServiceTypes=KonqPopupMenu/Plugin,image/*
@@ -33,7 +33,37 @@ X-KDE-Submenu[it]=ReImage - Utilità
 Exec=reimage-kdialog agif %F
 Icon=video-x-mp4
 Name=Create animated GIF
-Name[it]=Crea GIF animata
+Name[it]=Crea GIF
+
+[Desktop Action apng]
+Exec=reimage-kdialog apng %F
+Icon=video-x-mp4
+Name=Create animated PNG
+Name[it]=Crea PNG animata
+
+[Desktop Action avif]
+Exec=reimage-kdialog avif %F
+Icon=video-x-mp4
+Name=Create animated AVIF
+Name[it]=Crea AVIF
+
+[Desktop Action jxl]
+Exec=reimage-kdialog jxl %F
+Icon=video-x-mp4
+Name=Create animated JXL
+Name[it]=Crea JXL
+
+[Desktop Action heic]
+Exec=reimage-kdialog heic %F
+Icon=video-x-mp4
+Name=Create animated HEIC
+Name[it]=Crea HEIC
+
+[Desktop Action webp]
+Exec=reimage-kdialog webp %F
+Icon=video-x-mp4
+Name=Create animated WEBP
+Name[it]=Crea WEBP animata
 
 [Desktop Action append_right]
 Exec=reimage-kdialog montage %F
