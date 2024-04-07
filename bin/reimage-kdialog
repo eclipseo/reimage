@@ -1,7 +1,8 @@
 #! /bin/bash
 #
-# 	Part of kde-service-menu-reimage Version 2.5
+# 	Part of kde-service-menu-reimage Version 2.6.0
 # 	Copyright (C) 2018-2019 Giuseppe Benigno <giuseppe.benigno(at)gmail.com>
+# 	Copyright (C) 2024 Robert-André Mauchin <zebob.m(at)gmail.com>
 #
 # 	This program is free software: you can redistribute it and/or modify
 # 	it under the terms of the GNU General Public License as published by
@@ -26,9 +27,7 @@ new_line="
 
 load_language_en_US () {
 	msg_common_software_not_found_title="Software not found"
-	msg_common_mogrify_not_found_text="Software ImageMagick not found! Please, install it."
-	msg_common_convert_not_found_text="Software ImageMagick not found! Please, install it."
-	msg_common_montage_not_found_text="Software ImageMagick not found! Please, install it."
+	msg_common_magick_not_found_text="Software ImageMagick not found! Please, install it."
 	msg_common_jhead_not_found_text="Software jhead not found! Please, install it."
 	msg_common_webp_not_found_text="Software webp not found! Please, install it."
 	msg_common_action_not_found_text="The requested action is not implemented."
@@ -48,6 +47,18 @@ load_language_en_US () {
 	msg_agif_loop_input_text="Do you want loop playback?"
 	msg_agif_cicles_number_input_text="Type the number of repetitions of the animation:"
 	msg_agif_finish_title="Convert files into animated GIF"
+
+	msg_apng_title="Convert files into animated PNG"
+	msg_apng_delay_input_text="Enter the duration of the single frame, in hundredths of a second:${new_line}(100 = 1 second)"
+	msg_apng_loop_input_text="Do you want loop playback?"
+	msg_apng_cicles_number_input_text="Type the number of repetitions of the animation:"
+	msg_apng_finish_title="Convert files into animated PNG"
+
+	msg_webp_title="Convert files into animated WEBP"
+	msg_webp_delay_input_text="Enter the duration of the single frame, in hundredths of a second:${new_line}(100 = 1 second)"
+	msg_webp_loop_input_text="Do you want loop playback?"
+	msg_webp_cicles_number_input_text="Type the number of repetitions of the animation:"
+	msg_webp_finish_title="Convert files into animated WEBP"
 
 	msg_border_title="Add border"
 	msg_border_size_input_text="Type the size of border in percentage or in pixel.${new_line}${new_line}Valid values can be: 10% or 50"
@@ -282,6 +293,8 @@ help () {
 	echo
 	echo "Actions on pictures:"
 	echo "agif		create animated gif (no value request)"
+	echo "apng		create animated png (no value request)"
+	echo "webp		create animated webp (no value request)"
 	echo "colorspace	change colorspace (currently only gray)"
 	echo "compress	change quality (value in percent 1 to 100)"
 	echo "convert		change format (value: all formats supported by ImageMagick"
@@ -316,6 +329,8 @@ help () {
 	echo
 	echo "${0##*/} convert png /home/user/file1.jpg /home/user/file2.jpg"
 	echo "${0##*/} agif /home/user/file1.jpg /home/user/file2.jpg"
+	echo "${0##*/} apng /home/user/file1.jpg /home/user/file2.jpg"
+	echo "${0##*/} webp /home/user/file1.jpg /home/user/file2.jpg"
 	echo "${0##*/} colorspace gray /home/user/file1.jpg /home/user/file2.jpg"
 	echo "${0##*/} sepia 80% /home/user/file1.jpg /home/user/file2.jpg"
 	echo "${0##*/} transparent2color /home/user/file1.png /home/user/file2.png"
@@ -338,6 +353,7 @@ AAI	AAI Dune image
 AI	Adobe Illustrator CS2
 ART	PFS: 1st Publisher Clip Art
 ARW	Sony Alpha Raw Image Format
+AVIF	AVIF image file
 AVS	AVS X image
 BGR	Raw blue, green, and red samples
 BGRA	Raw blue, green, red, and alpha samples
@@ -398,6 +414,7 @@ GV	Graphviz
 H	Image expressed as a 'C/C++' char array
 HALD	Identity Hald color lookup table image
 HDR	Radiance RGBE image format
+HEIF	HEIF image file
 HISTOGRAM	Histogram of the image
 HRZ	Slow Scan TeleVision
 HTM	Hypertext Markup Language and a client-side image map
@@ -422,6 +439,7 @@ JPEG	Joint Photographic Experts Group JFIF format (80)
 JPG	Joint Photographic Experts Group JFIF format (80)
 JPS	Joint Photographic Experts Group JFIF format (80)
 JSON	The image format and characteristics
+JXL	Joint Photographic Experts Group XL format (80)
 K25	Kodak Digital Camera Raw Image Format
 KDC	Kodak Digital Camera Raw Image Format
 LABEL	Image label
@@ -539,6 +557,7 @@ VIFF	Khoros Visualization image
 VIPS	VIPS image
 VST	Truevision Targa image
 WBMP	Wireless Bitmap (level 0) image
+WEBP	WEBP image
 WMF	Windows Meta File
 WMV	Windows Media Video
 WMZ	Compressed Windows Meta File
@@ -563,9 +582,9 @@ YUV	CCIR 601 4:1:1 or 4:2:2
 
 run_compress () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -quality "${quality}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -quality "${quality}" "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -quality "${quality}" "${input}" "${dir}/${base}_compressed.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -quality "${quality}" "${dir}/${base}_compressed.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -574,27 +593,27 @@ run_compress () {
 run_optimize () {
 	## https://www.smashingmagazine.com/2015/06/efficient-image-resizing-with-imagemagick/
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -filter Triangle -define filter:support=2 -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -colorspace sRGB -strip -interlace Plane "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -filter Triangle -define filter:support=2 -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -colorspace sRGB -strip -interlace Plane "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -filter Triangle -define filter:support=2 -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -colorspace sRGB -strip -interlace Plane "${input}" "${dir}/${base}_optimized.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -filter Triangle -define filter:support=2 -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -colorspace sRGB -strip -interlace Plane "${input}"  "${dir}/${base}_optimized.${ext}" 2>&1)
 	fi
 	return $?
 }
 
 run_progressive () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -strip -interlace Plane "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -strip -interlace Plane "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -strip -interlace Plane "${input}" "${dir}/${base}_progressive.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -strip -interlace Plane "${dir}/${base}_progressive.${ext}" 2>&1)
 	fi
 	return $?
 }
 
 run_resize () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -resize "${scale}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -resize "${scale}" "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -resize "${scale}" "${input}" "${dir}/${base}_resized.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -resize "${scale}" "${dir}/${base}_resized.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -603,7 +622,17 @@ run_resize () {
 ######################################## Run convert and rotate
 
 run_agif () {
-	msg=$("${convert_bin}" -delay ${delay} "${@}" -loop ${loop} "${dir}/animated.gif" 2>&1)
+	msg=$("${magick_bin}" "${input}" -delay ${delay} "${@}" -loop ${loop} "${dir}/animated.gif" 2>&1)
+	return $?
+}
+
+run_webp () {
+	msg=$("${magick_bin}" "${input}" -delay ${delay} "${@}" -loop ${loop} "${dir}/animated.apng" 2>&1)
+	return $?
+}
+
+run_webp () {
+	msg=$("${magick_bin}" "${input}" -delay ${delay} "${@}" -loop ${loop} "${dir}/animated.webp" 2>&1)
 	return $?
 }
 
@@ -622,15 +651,15 @@ run_border () {
 		output="${dir}/${base}_border.${ext}"
 	fi
 
-	msg=$("${convert_bin}" "${input}" -bordercolor "${color}" -border "${size}" "${output}" 2>&1)
+	msg=$("${magick_bin}" "${input}" -bordercolor "${color}" -border "${size}" "${output}" 2>&1)
 	return $?
 }
 
 run_colorspace () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -colorspace "${value}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -colorspace "${value}" "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -colorspace "${value}" "${input}" "${dir}/${base}_colorspace.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -colorspace "${value}" "${dir}/${base}_colorspace.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -638,9 +667,9 @@ run_colorspace () {
 
 run_convert () {
 	if [ "${overwrite}" != true ] && [ "${ext}" = "${format}" ]; then
-		msg=$("${convert_bin}" -format "${format}" "${input}" "${dir}/${base}_converted.${format}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -format "${format}" "${input}" 2>&1)
 	else
-		msg=$("${mogrify_bin}" -format "${format}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -format "${format}" "${dir}/${base}_converted.${format}" 2>&1)
 	fi
 
 	return $?
@@ -649,13 +678,13 @@ run_convert () {
 run_favicons () {
 	dest_dir="${base}-favicons"
 
-	wxh=$(convert "${input}" -format "%w x %h" info:)
+	wxh=$("${magick_bin}" "${input}" -format "%w x %h" info:)
 	w=${wxh%% *}
 	h=${wxh##* }
 	max=$(( w > h ? w : h ))
 
 	SOURCE_IMG="${base}_square.png"
-	convert "${input}" -background transparent \
+	"${magick_bin}" "${input}" -background transparent \
 		-compose Copy -gravity center -extent ${max}x${max} "${SOURCE_IMG}"
 
 	PLATFORMS=(ANDROID APPLE FAVICON MS)
@@ -681,13 +710,13 @@ run_favicons () {
 		for i in ${SIZES[@]}; do
 			mkdir -p "${dest_dir}"
 			echo ${NAME}-${i}x${i}.png
-			"${convert_bin}" -resize "${i}x${i}!" "${SOURCE_IMG}" "${dest_dir}/${NAME}-${i}x${i}.png"
+			"${magick_bin}" "${input}" -resize "${i}x${i}!" "${SOURCE_IMG}" "${dest_dir}/${NAME}-${i}x${i}.png"
 		done
 	done
 
-	"${convert_bin}" -resize 16x16 "${SOURCE_IMG}" "${dest_dir}/favicon.ico"
-	"${convert_bin}" -resize 192x192 "${SOURCE_IMG}" "${dest_dir}/apple-icon.png"
-	"${convert_bin}" -resize 192x192 "${SOURCE_IMG}" "${dest_dir}/apple-icon-precomposed.png"
+	"${magick_bin}" "${input}" -resize 16x16 "${SOURCE_IMG}" "${dest_dir}/favicon.ico"
+	"${magick_bin}" "${input}" -resize 192x192 "${SOURCE_IMG}" "${dest_dir}/apple-icon.png"
+	"${magick_bin}" "${input}" -resize 192x192 "${SOURCE_IMG}" "${dest_dir}/apple-icon-precomposed.png"
 
 	yes | rm "${SOURCE_IMG}"
 
@@ -748,20 +777,20 @@ EOF
 }
 
 run_montage () {
-	msg=$(convert "${img_to_add}" -format "%h" info: 2>&1)
+	msg=$("${magick_bin}" "${img_to_add}" -format "%h" info: 2>&1)
 	code=$?
 	[ $code -gt 0 ] && return $code
 
-	height=$(convert "${input}" -format "%h" info: 2>&1)
+	height=$("${magick_bin}" "${input}" montage "${input}" -format "%h" info: 2>&1)
 	msg=$("${montage_bin}" "${input}" -resize x${height} "${img_to_add}" -geometry +0+0 "${dir}/${base}_${img_to_add_base}.${ext}" 2>&1)
 	return $?
 }
 
 run_overturn () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -"${value}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -"${value}" "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -"${value}" "${input}" "${dir}/${base}_${value}.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -"${value}" "${dir}/${base}_${value}.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -770,15 +799,15 @@ run_overturn () {
 run_rotate () {
 	if [ "${overwrite}" = true ]; then
 		if [ "${angle}" = "auto" ]; then
-			msg=$("${mogrify_bin}" -auto-orient "${input}" 2>&1)
+			msg=$("${magick_bin}" "${input}" -auto-orient "${input}" 2>&1)
 		else
-			msg=$("${mogrify_bin}" -rotate ${angle} "${input}" 2>&1)
+			msg=$("${magick_bin}" "${input}" -rotate ${angle} "${input}" 2>&1)
 		fi
 	else
 		if [ "${angle}" = "auto" ]; then
-			msg=$("${convert_bin}" -auto-orient "${input}" "${dir}/${base}_rotated.${ext}" 2>&1)
+			msg=$("${magick_bin}" "${input}" -auto-orient "${dir}/${base}_rotated.${ext}" 2>&1)
 		else
-			msg=$("${convert_bin}" -rotate ${angle} "${input}" "${dir}/${base}_rotated.${ext}" 2>&1)
+			msg=$("${magick_bin}" "${input}" -rotate ${angle} "${dir}/${base}_rotated.${ext}" 2>&1)
 		fi
 	fi
 
@@ -787,9 +816,9 @@ run_rotate () {
 
 run_sepia () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" -sepia-tone "${value}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -sepia-tone "${value}" "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" -sepia-tone "${value}" "${input}" "${dir}/${base}_sepia.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -sepia-tone "${value}" "${dir}/${base}_sepia.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -800,9 +829,9 @@ run_shadow () {
 	[ -n "${jfif}" ] && "${kdialog_bin}" --icon configure --title "${!msg_finish_title}" --sorry "${msg_common_transparent_unsupported_text}" && return 0
 
 	if [ "${overwrite}" = true ]; then
-		msg=$("${convert_bin}" "${input}" \( +clone -background black -shadow 80x8+8+8 \) +swap -background none -layers merge +repage "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" \( +clone -background black -shadow 80x8+8+8 \) +swap -background none -layers merge +repage "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" "${input}" \( +clone -background black -shadow 80x8+8+8 \) +swap -background none -layers merge +repage "${dir}/${base}_shadow.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" \( +clone -background black -shadow 80x8+8+8 \) +swap -background none -layers merge +repage "${dir}/${base}_shadow.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -812,9 +841,9 @@ run_timestamp () {
 	timestamp=$(jhead -exifmap 01.jpg | grep "Date/Time" | sed "s/^[^:]*:[[:blank:]]*\([[:digit:]]\{4\}\):\([[:digit:]]\{2\}\):\([[:digit:]]\{2\}\)/\1-\2-\3/")
 
 	if [ "${overwrite}" = true ]; then
-		msg=$("${convert_bin}" "${input}" -gravity SouthEast -pointsize 30 -fill white -annotate +30+30 "${timestamp}" "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -gravity SouthEast -pointsize 30 -fill white -annotate +30+30 "${timestamp}" "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" "${input}" -gravity SouthEast -pointsize 30 -fill white -annotate +30+30 "${timestamp}" "${dir}/${base}_timestamp.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -gravity SouthEast -pointsize 30 -fill white -annotate +30+30 "${timestamp}" "${dir}/${base}_timestamp.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -822,9 +851,9 @@ run_timestamp () {
 
 run_transparent2color () {
 	if [ "${overwrite}" = true ]; then
-		msg=$("${mogrify_bin}" "${input}" -background "${color}" -flatten "${input}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -background "${color}" -flatten "${input}" 2>&1)
 	else
-		msg=$("${convert_bin}" "${input}" -background "${color}" -flatten "${dir}/${base}_background.${ext}" 2>&1)
+		msg=$("${magick_bin}" "${input}" -background "${color}" -flatten "${dir}/${base}_background.${ext}" 2>&1)
 	fi
 
 	return $?
@@ -1077,6 +1106,52 @@ set_agif () {
 	manage_input_at_once "${@}"
 }
 
+set_apng () {
+	[ ${#} -lt 2 ] && help
+
+	default_delay=100
+	default_cicles_number=1
+
+	delay=$("${kdialog_bin}" --icon configure --title "${!msg_title}" --inputbox "${msg_apng_delay_input_text}" $default_delay) || {
+		"${kdialog_bin}" --title "${!msg_title}" --passivepopup "${msg_common_abort}" 5 && exit 2;
+	}
+
+	"${kdialog_bin}" --icon configure --title "${!msg_title}" --yesnocancel "${msg_apng_loop_input_text}" && loop=0 || {
+		[ $? -eq 1 ] && {
+			loop=$("${kdialog_bin}" --icon configure --title "${!msg_title}" --inputbox "${msg_apng_cicles_number_input_text}" $default_cicles_number) || {
+				"${kdialog_bin}" --title "${!msg_title}" --passivepopup "${msg_common_abort}" 5 && exit 2;
+			}
+		} || {
+			"${kdialog_bin}" --title "${!msg_title}" --passivepopup "${msg_common_abort}" 5 && exit 2;
+		}
+	}
+
+	manage_input_at_once "${@}"
+}
+
+set_webp () {
+	[ ${#} -lt 2 ] && help
+
+	default_delay=100
+	default_cicles_number=1
+
+	delay=$("${kdialog_bin}" --icon configure --title "${!msg_title}" --inputbox "${msg_webp_delay_input_text}" $default_delay) || {
+		"${kdialog_bin}" --title "${!msg_title}" --passivepopup "${msg_common_abort}" 5 && exit 2;
+	}
+
+	"${kdialog_bin}" --icon configure --title "${!msg_title}" --yesnocancel "${msg_webp_loop_input_text}" && loop=0 || {
+		[ $? -eq 1 ] && {
+			loop=$("${kdialog_bin}" --icon configure --title "${!msg_title}" --inputbox "${msg_webp_cicles_number_input_text}" $default_cicles_number) || {
+				"${kdialog_bin}" --title "${!msg_title}" --passivepopup "${msg_common_abort}" 5 && exit 2;
+			}
+		} || {
+			"${kdialog_bin}" --title "${!msg_title}" --passivepopup "${msg_common_abort}" 5 && exit 2;
+		}
+	}
+
+	manage_input_at_once "${@}"
+}
+
 set_border () {
 	value="${1}"
 	shift
@@ -1279,17 +1354,17 @@ set_purejpg () {
 kdialog_bin=$(which kdialog)
 [ -z "${kdialog_bin}" ] && echo "kdialog not found!" && exit 1
 
-mogrify_bin=$(which mogrify)
-[ -z "${mogrify_bin}" ] && \
-	"${kdialog_bin}" --icon configure --title "${msg_common_software_not_found_title}" --error "${msg_common_mogrify_not_found_text}" && exit 2
+magick_bin=$(which cjxl)
+[ -z "${magick_bin}" "${input}" ] && \
+	"${kdialog_bin}" --icon configure --title "${msg_common_software_not_found_title}" --error "${msg_common_cjxl_not_found_text}" && exit 2
 
-convert_bin=$(which convert)
-[ -z "${convert_bin}" ] && \
-	"${kdialog_bin}" --icon configure --title "${msg_common_software_not_found_title}" --error "${msg_common_convert_not_found_text}" && exit 2
+magick_bin=$(which djxl)
+[ -z "${magick_bin}" "${input}" ] && \
+	"${kdialog_bin}" --icon configure --title "${msg_common_software_not_found_title}" --error "${msg_common_cjxl_not_found_text}" && exit 2
 
-montage_bin=$(which montage)
-[ -z "${montage_bin}" ] && \
-	"${kdialog_bin}" --icon configure --title "${msg_common_software_not_found_title}" --error "${msg_common_montage_not_found_text}" && exit 2
+magick_bin=$(which magick)
+[ -z "${magick_bin}" "${input}" ] && \
+	"${kdialog_bin}" --icon configure --title "${msg_common_software_not_found_title}" --error "${msg_common_magick_not_found_text}" && exit 2
 
 jhead_bin=$(which jhead)
 [ -z "${jhead_bin}" ] && \
