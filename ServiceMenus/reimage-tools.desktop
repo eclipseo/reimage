@@ -18,10 +18,9 @@
 #
 
 [Desktop Entry]
-Actions=agif;apng;avif;jxl;heic;webp;append_right;_SEPARATOR_;gray;sepia;transparent2color;_SEPARATOR_;border;border_transparent;shadow;_SEPARATOR_;
+Actions=agif;apng;webp;append_right;_SEPARATOR_;gray;sepia;transparent2color;_SEPARATOR_;border;border_transparent;shadow;
 MimeType=image/*
 Name=ReImage tools service menu
-ServiceTypes=KonqPopupMenu/Plugin,image/*
 TryExec=reimage-kdialog
 Type=Service
 X-KDE-Submenu=ReImage - Tools
@@ -41,23 +40,23 @@ Icon=video-x-mp4
 Name=Create animated PNG
 Name[it]=Crea PNG animata
 
-[Desktop Action avif]
-Exec=reimage-kdialog avif %F
-Icon=video-x-mp4
-Name=Create animated AVIF
-Name[it]=Crea AVIF
-
-[Desktop Action jxl]
-Exec=reimage-kdialog jxl %F
-Icon=video-x-mp4
-Name=Create animated JXL
-Name[it]=Crea JXL
-
-[Desktop Action heic]
-Exec=reimage-kdialog heic %F
-Icon=video-x-mp4
-Name=Create animated HEIC
-Name[it]=Crea HEIC
+# [Desktop Action avif]
+# Exec=reimage-kdialog avif %F
+# Icon=video-x-mp4
+# Name=Create animated AVIF
+# Name[it]=Crea AVIF
+#
+# [Desktop Action jxl]
+# Exec=reimage-kdialog jxl %F
+# Icon=video-x-mp4
+# Name=Create animated JXL
+# Name[it]=Crea JXL
+#
+# [Desktop Action heif]
+# Exec=reimage-kdialog heif %F
+# Icon=video-x-mp4
+# Name=Create animated HEIF
+# Name[it]=Crea HEIF
 
 [Desktop Action webp]
 Exec=reimage-kdialog webp %F
