@@ -20,7 +20,7 @@
 #
 
 [Desktop Entry]
-Actions=progressive;optimize;_SEPARATOR_;compress_50;compress_70;compress_75;compress_80;compress_90;custom_compress;_SEPARATOR_;resize_25;resize_33;resize_50;resize_67;resize_75;_SEPARATOR_;320x240;800x600;1024x768;1200x900;1400x1050;1920x1080;1920x1200;2560x1080;2560x1440;2560x1600;3440x1440;3840x2160;5120x2160;custom_resize;
+Actions=progressive;optimize;_SEPARATOR_;compress_50;compress_70;compress_75;compress_80;compress_90;custom_compress;_SEPARATOR_;resize_25;resize_33;resize_50;resize_67;resize_75;_SEPARATOR_;320x240;800x600;_SEPARATOR_;1024x768;1200x900;1400x1050;_SEPARATOR_;1920x1080;1920x1200;2560x1080;_SEPARATOR_;2560x1440;2560x1600;3440x1440;_SEPARATOR_;3840x2160;5120x2160;_SEPARATOR_;custom_resize;
 MimeType=image/*
 Name=ReImage compress and resize service menu
 TryExec=reimage-kdialog
