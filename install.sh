@@ -21,7 +21,7 @@
 #
 
 if [[ $EUID -eq 0 ]]; then
-    bin_dir="$(qtpaths6 --query QT_HOST_PREFIX)/bin"
+    bin_dir="$(qtpaths-qt6 --query QT_HOST_PREFIX)/bin"
     desktop_dir="$(qtpaths-qt6 --locate-dirs GenericDataLocation kio/servicemenus | sed "s/.*://")"
     doc_dir="$(qtpaths-qt6 --query QT_INSTALL_PREFIX)/share/doc/kde-service-menu-reimage/"
     echo "Installing kde-service-menu-reimage system wide"
