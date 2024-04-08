@@ -27,7 +27,7 @@ TryExec=reimage-kdialog
 Type=Service
 X-KDE-Submenu=ReImage - Metadata
 X-KDE-Submenu[it]=ReImage - Metadati
-X-KDE-Submenu[it]=ReImage - Metagegevens
+X-KDE-Submenu[nl]=ReImage - Metagegevens
 
 ################################################################################
 
