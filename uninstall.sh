@@ -22,12 +22,12 @@
 
 if [[ $EUID -eq 0 ]]; then
     bin_dir="$(qtpaths6 --query QT_HOST_PREFIX)/bin"
-    desktop_dir="$(qtpaths-qt6 --locate-dirs GenericDataLocation kio/servicemenus | sed "s/.*://")"
-    doc_dir="$(qtpaths-qt6 --query QT_INSTALL_PREFIX)/share/doc/kde-service-menu-reimage/"
+    desktop_dir="$(qtpaths6 --locate-dirs GenericDataLocation kio/servicemenus | sed "s/.*://")"
+    doc_dir="$(qtpaths6 --query QT_INSTALL_PREFIX)/share/doc/kde-service-menu-reimage/"
     echo "Removing kde-service-menu-reimage system wide"
 else
     bin_dir="$HOME/.local/bin"
-    desktop_dir="$(qtpaths-qt6 --locate-dirs GenericDataLocation kio/servicemenus | sed "s/:.*//")"
+    desktop_dir="$(qtpaths6 --locate-dirs GenericDataLocation kio/servicemenus | sed "s/:.*//")"
     doc_dir=$HOME"/share/doc/kde-service-menu-reimage/"
     echo "Removing kde-service-menu-reimage locally"
 fi
