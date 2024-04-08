@@ -27,6 +27,7 @@ TryExec=reimage-kdialog
 Type=Service
 X-KDE-Submenu=ReImage - Tools
 X-KDE-Submenu[it]=ReImage - Utilità
+X-KDE-Submenu[nl]=ReImage - Gereedschap
 
 ################################################################################
 
@@ -35,42 +36,49 @@ Exec=reimage-kdialog agif %F
 Icon=video-x-mp4
 Name=Create animated GIF
 Name[it]=Crea GIF
+Name[nl]=Bewegende gif maken
 
 [Desktop Action apng]
 Exec=reimage-kdialog apng %F
 Icon=video-x-mp4
 Name=Create animated PNG
 Name[it]=Crea PNG animata
+Name[nl]=Bewegende png maken
 
 # [Desktop Action avif]
 # Exec=reimage-kdialog avif %F
 # Icon=video-x-mp4
 # Name=Create animated AVIF
 # Name[it]=Crea AVIF
+# Name[nl]=Bewegende avif maken
 #
 # [Desktop Action jxl]
 # Exec=reimage-kdialog jxl %F
 # Icon=video-x-mp4
 # Name=Create animated JXL
 # Name[it]=Crea JXL
+# Name[nl]=Bewegende jxl maken
 #
 # [Desktop Action heif]
 # Exec=reimage-kdialog heif %F
 # Icon=video-x-mp4
 # Name=Create animated HEIF
 # Name[it]=Crea HEIF
+# Name[nl]=Bewegende heif maken
 
 [Desktop Action webp]
 Exec=reimage-kdialog webp %F
 Icon=video-x-mp4
 Name=Create animated WEBP
 Name[it]=Crea WEBP animata
+Name[nl]=Bewegende webp maken
 
 [Desktop Action append_right]
 Exec=reimage-kdialog montage %F
 Icon=image-flip-horizontal-symbolic
 Name=Append to right
 Name[it]=Appendi immagine a destra
+Name[nl]=Rechts toevoegen
 
 ################################################################################
 
@@ -79,18 +87,21 @@ Exec=reimage-kdialog colorspace gray %F
 Icon=viewimage
 Name=GrayScale
 Name[it]=Scala di grigi
+Name[nl]=Grijswaarden
 
 [Desktop Action sepia]
 Exec=reimage-kdialog sepia 80% %F
 Icon=color-management
 Name=Sepia
 Name[it]=Seppia
+Name[nl]=Sepia
 
 [Desktop Action transparent2color]
 Exec=reimage-kdialog transparent2color %F
 Icon=backgroundtool
 Name=Change transparent to color
 Name[it]=Cambia trasparenza a colore
+Name[nl]=Doorzichtheid omzetten naar kleur
 
 ################################################################################
 
@@ -99,15 +110,18 @@ Exec=reimage-kdialog border custom %F
 Icon=bordertool
 Name=Add colored border
 Name[it]=Aggiungi bordo colorato
+Name[nl]=Gekleurd kader toevoegen
 
 [Desktop Action border_transparent]
 Exec=reimage-kdialog border transparent %F
 Icon=box
 Name=Add transparent border
 Name[it]=Aggiungi bordo trasparente
+Name[nl]=Doorzichtig kader toevoegen
 
 [Desktop Action shadow]
 Exec=reimage-kdialog shadow %F
 Icon=bwtonal
 Name=Drop shadow
 Name[it]=Aggiungi ombra
+Name[nl]=Valschaduw
