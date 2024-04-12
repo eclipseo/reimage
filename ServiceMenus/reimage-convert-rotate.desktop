@@ -27,6 +27,7 @@ TryExec=reimage-kdialog
 Type=Service
 X-KDE-Submenu=ReImage - Convert and rotate
 X-KDE-Submenu[it]=ReImage - Conversione e rotazione
+X-KDE-Submenu[nl]=ReImage - Converteren en draaien
 
 ################################################################################
 
@@ -35,48 +36,56 @@ Exec=reimage-kdialog convert avif %F
 Icon=image-avif
 Name=Convert to AVIF
 Name[it]=Converti in AVIF
+Name[nl]=Converteren naar avif
 
 [Desktop Action gif]
 Exec=reimage-kdialog convert gif %F
 Icon=image-gif
 Name=Convert to GIF
 Name[it]=Converti in GIF
+Name[nl]=Converteren naar gif
 
 [Desktop Action heic]
 Exec=reimage-kdialog convert heic %F
 Icon=image-heic
 Name=Convert to HEIF
 Name[it]=Converti in HEIF
+Name[nl]=Converteren naar heif
 
 [Desktop Action jpeg]
 Exec=reimage-kdialog convert jpg %F
 Icon=image-jpeg
 Name=Convert to JPEG
 Name[it]=Converti in JPEG
+Name[nl]=Converteren naar jpeg
 
 [Desktop Action jxl]
 Exec=reimage-kdialog convert jxl %F
 Icon=image-jxl
 Name=Convert to JXL
 Name[it]=Converti in JXL
+Name[nl]=Converteren naar jxl
 
 [Desktop Action png]
 Exec=reimage-kdialog convert png %F
 Icon=image-png
 Name=Convert to PNG
 Name[it]=Converti in PNG
+Name[nl]=Converteren naar png
 
 [Desktop Action tiff]
 Exec=reimage-kdialog convert tif %F
 Icon=image-tiff
 Name=Convert to TIFF
 Name[it]=Converti in TIFF
+Name[nl]=Converteren naar tiff
 
 [Desktop Action webp]
 Exec=reimage-kdialog convert webp %F
 Icon=image-webp
 Name=Convert to WEBP
 Name[it]=Converti in WEBP
+Name[nl]=Converteren naar webp
 
 ################################################################################
 
@@ -85,12 +94,14 @@ Exec=reimage-kdialog convert pdf %F
 Icon=application-pdf
 Name=Convert to PDF
 Name[it]=Converti in PDF
+Name[nl]=Converteren naar pdf
 
 [Desktop Action pdfa]
 Exec=reimage-kdialog convert pdfa %F
 Icon=application-pdf
 Name=Convert to PDF/A-1
 Name[it]=Converti in PDF/A-1
+Name[nl]=Converteren naar pdf/A-1
 
 ################################################################################
 
@@ -99,24 +110,28 @@ Exec=reimage-kdialog favicons all %F
 Icon=image-ico
 Name=Generate favicons
 Name[it]=Genera favicons
+Name[nl]=Favicons genereren
 
 [Desktop Action base64]
 Exec=for i in %F; do cat "$i" | base64 -w0 > "$i".base64; done
 Icon=text-plain
 Name=Convert to Base64
 Name[it]=Converti in Base64
+Name[nl]=Converteren naar Base64
 
 [Desktop Action convert_custom]
 Exec=reimage-kdialog convert custom %F
 Icon=image
 Name=Convert to format ...
 Name[it]=Formato personalizzato ...
+Name[nl]=Converteren naar ander formaat…
 
 [Desktop Action formats]
 Exec=reimage-kdialog convert formats
 Icon=view-list-text
 Name=Formats list
 Name[it]=Elenco formati
+Name[nl]=Lijst met bestandsformaten
 
 ################################################################################
 
@@ -125,30 +140,35 @@ Exec=reimage-kdialog rotate 90 %F
 Icon=image-rotate-right-symbolic
 Name=Rotate 90°
 Name[it]=Ruota di 90°
+Name[nl]=90° draaien
 
 [Desktop Action rotate_180]
 Exec=reimage-kdialog rotate 180 %F
 Icon=image-rotate-right-symbolic
 Name=Rotate 180°
 Name[it]=Ruota di 180°
+Name[nl]=180° draaien
 
 [Desktop Action rotate_270]
 Exec=reimage-kdialog rotate 270 %F
 Icon=image-rotate-left-symbolic
 Name=Rotate (-90°)
 Name[it]=Ruota di -90°
+Name[nl]=-90° draaien
 
 [Desktop Action rotate_custom]
 Exec=reimage-kdialog rotate custom %F
 Icon=view-refresh
 Name=Rotate custom
 Name[it]=Angolo personalizzato
+Name[nl]=Zelfgekozen draaihoek
 
 [Desktop Action auto]
 Exec=reimage-kdialog rotate auto %F
 Icon=view-refresh
 Name=Auto-rotate with Exif
 Name[it]=Auto-ruota tramite dati Exif
+Name[nl]=Automatisch draaien met Exif
 
 ################################################################################
 
@@ -157,9 +177,11 @@ Exec=reimage-kdialog overturn flip %F
 Icon=image-flip-vertical-symbolic
 Name=Overturn vertically
 Name[it]=Ribalta verticalmente
+Name[nl]=Verticaal spiegelen
 
 [Desktop Action flop]
 Exec=reimage-kdialog overturn flop %F
 Icon=image-flip-horizontal-symbolic
 Name=Overturn horizontally
 Name[it]=Ribalta orizzontalmente
+Name[nl]=Horizontaal spiegelen
