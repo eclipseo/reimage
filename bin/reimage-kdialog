@@ -273,6 +273,134 @@ load_language_it () {
 	msg_purejpg_finish_title="Elimina medatati non necessari da \"${name}\""
 }
 
+load_language_nl () {
+	msg_common_software_not_found_title="Software niet aangetroffen"
+	msg_common_magick_not_found_text="ImageMagick is niet aangetroffen! Installeer dit en probeer het opnieuw."
+	msg_common_jhead_not_found_text="jhead is niet aangetroffen! Installeer dit en probeer het opnieuw."
+	msg_common_webp_not_found_text="webp is niet aangetroffen! Installeer dit en probeer het opnieuw."
+	msg_common_action_not_found_text="Deze actie is nog niet beschikbaar."
+	msg_common_overwrite_text="Als de afbeeldingen dezelfde naam dragen als de te verwerken afbeeldingen,${new_line}wil je ze dan overschrijven?"
+	msg_common_abort="De actie is afgebroken."
+	msg_common_file_not_found="\“${name}\” is niet aangetroffen!"
+	msg_common_name_error="\“${name}\” bevat geen geldige datumopmaak.${new_line}${new_line}De datum dient als volgt te zijn opgemaakt: YYYY-MM-DD_HHMMSS.jpg"
+	msg_common_start="Bezig met starten…"
+	msg_common_progress_text="Bezig met verwerken van $processed van $quantity ($(basename "${input}"))"
+	msg_common_finish_ok="Afgerond."
+	msg_common_finish_error="Er is een fout opgetreden."
+	msg_common_transparent_unsupported_text="Het jpeg-formaat heeft geen ondersteuning voor doorzichtigheid.${new_line}Converteer het bestand naar png."
+# 	msg_common_details="Details:"
+
+	msg_agif_title="Bestanden converteren naar bewegend gif-bestand"
+	msg_agif_delay_input_text="Voer de duur van een enkel frame in, in honderdsten van een seconde:${new_line}(100 = 1 seconde)"
+	msg_agif_loop_input_text="Wil je dat het bestand doorlopend wordt afgespeeld?"
+	msg_agif_cicles_number_input_text="Voer het aantal herhalingen van de animatie in:"
+	msg_agif_finish_title="Bestanden converteren naar bewegende gif-bestanden"
+
+	msg_apng_title="Bestanden converteren naar bewegend png-bestand"
+	msg_apng_delay_input_text="Voer de duur van een enkel frame in, in honderdsten van een seconde:${new_line}(100 = 1 seconde)"
+	msg_apng_loop_input_text="Wil je dat het bestand doorlopend wordt afgespeeld?"
+	msg_apng_cicles_number_input_text="Voer het aantal herhalingen van de animatie in:"
+	msg_apng_finish_title="Bestanden converteren naar bewegende png-bestanden"
+
+	msg_webp_title="Bestanden converteren naar bewegend webp-bestand"
+	msg_webp_delay_input_text="Voer de duur van een enkel frame in, in honderdsten van een seconde:${new_line}(100 = 1 seconde)"
+	msg_webp_loop_input_text="Wil je dat het bestand doorlopend wordt afgespeeld?"
+	msg_webp_cicles_number_input_text="Voer het aantal herhalingen van de animatie in:"
+	msg_webp_finish_title="Bestanden converteren naar bewegende webp-bestanden"
+
+	msg_border_title="Kader toevoegen"
+	msg_border_size_input_text="Voer de grootte van het kader in, in percentage of pixels.${new_line}${new_line}Geldige waarden: 10% of 50"
+	msg_border_finish_title="Kader toevoegen aan \“${name}\”"
+
+	msg_colorspace_title="Kleurruimte van \“${value}\” aanpassen"
+	msg_colorspace_finish_title="Kleurruimte van \“${value}\” aanpassen"
+
+	msg_compress_title="Afbeeldingscompressie met kwaliteit: \‘${value}\’"
+	msg_compress_quality_input_text="Geef de kwaliteit op:"
+	msg_compress_finish_title="Compressie van \“${name}\”"
+
+	msg_convert_title="Bestand converteren naar \${value}\-formaat"
+	msg_convert_format_input_text="Geef het bestandsformaat op.${new_line}De volledige lijst kan worden opgevraagd met behulp van de volgende shellopdracht ‘mogrify -list format$’{new_line}of door de ImageMagick-handleiding te raadplegen."
+	msg_convert_finish_title="Conversie van \“${name}\”"
+
+	msg_favicons_title="Favicons genereren"
+	msg_favicons_finish_title="Favicons genereren van \“{name}\”"
+
+	msg_montage_title="Toevoegen aan afbeelding"
+	msg_montage_finish_title="Afbeelding toevoegen aan \“${name}\”"
+
+	msg_optimize_title="Optimaliseren voor online-gebruik"
+	msg_optimize_finish_title="\“${name}\” optimaliseren"
+
+	msg_overturn_title="Spiegelen naar \‘${value}\’"
+	msg_overturn_finish_title="\‘${name}\’ spiegelen"
+
+	msg_resize_title="Afbeeldingsgrootte aanpassen naar \‘${value}\’"
+	msg_resize_scale_input_text="Geef de factor op in percentage of de maximale grootte per richting.${new_line}Je kunt kiezen uit een percentage of pixelgrootte.${new_line}${new_line}Geldige waarden: 30% of 1024x768"
+	msg_resize_finish_title="Afbeeldingsgrootte van \“${name}\” aanpassen"
+
+	msg_rotate_title="Bestand draaien met \‘{value}\’"
+	msg_rotate_angle_input_text="Voer de gewenste draaihoek in:"
+	msg_rotate_finish_title="\“${name}\” draaien"
+
+	msg_sepia_title="Sepiafilter"
+	msg_sepia_finish_title="Sepiafilter toepassen op \“${name}\”"
+
+	msg_shadow_title="Valschaduw"
+	msg_shadow_finish_title="Valschaduw toepassen op \“${name}\”"
+
+	msg_timestamp_title="Tijdstempel toevoegen"
+	msg_timestamp_finish_title="Tijdstempel toevoegen aan \“${name}\”"
+
+	msg_transparent2color_title="Doorzichtigheid omzetten naar kleur"
+	msg_transparent2color_finish_title="Pas de doorzichtigheid aan van \“${name}\”"
+
+	msg_rfe_title="Bestandsnaam wĳzigen op basis van Exif-metagegevens"
+	msg_rfe_no_metadata="De metagegevens bevatten mogelijk niet de bestandsnaam."
+	msg_rfe_finish_title="Bestandsnaam wĳzigen van \“${name}\”"
+
+	msg_rff_title="Bestandsnaam wĳzigen op basis van datum"
+	msg_rff_finish_title="Bestandsnaam wĳzigen van \“${name}\”"
+
+	msg_sffe_title="Datum instellen op basis van Exif-metagegevens"
+	msg_sffe_no_metadata="De metagegevens bevatten mogelijk niet de datum."
+	msg_sffe_finish_title="Datum instellen van \“${name}\”"
+
+	msg_sffn_title="Datum instellen op basis van bestandsnaam"
+	msg_sffn_finish_title="Datum instellen van \“${name}\”"
+
+	msg_seff_title="Exif-datum instellen op basis van bestandsnaam"
+	msg_seff_finish_title="Datum instellen van \“${name}\”"
+
+	msg_sefn_title="Exif-datum instellen op basis van bestandsnaam"
+	msg_sefn_finish_title="Datum instellen van \“${name}\”"
+
+	msg_ac_title="Opmerking toevoegen"
+	msg_ac_comment_input_text="Opmerking:"
+	msg_ac_finish_title="Opmerking toevoegen aan \“${name}\”"
+
+	msg_ve_title="Metagegevens bekijken"
+	msg_ve_finish_title="Metagegevens van \“${name}\” bekijken"
+
+	msg_ee_title="Metagegevens extraheren"
+	msg_ee_finish_title="Metagegevens van \“${name}\ extraheren"
+
+	msg_dc_title="Opmerking wissen"
+	msg_dc_finish_title="Opmerking van \“${name}\” wissen"
+
+	msg_de_title="Exif-sectie strippen"
+	msg_de_finish_title="Exif-sectie van \“${name}\” strippen"
+
+	msg_di_title="IPTC-sectie wissen"
+	msg_di_finish_title="IPTC-sectie van \“${name}\” wissen"
+
+	msg_dx_title="XMP-sectie wissen"
+	msg_dx_finish_title="XMP-section van \“${name}\” wissen"
+
+	msg_purejpg_title="Alle onnodige gegevens wissen"
+	msg_purejpg_finish_title="Alle onnodige gegevens van \“${name}\” wissen"
+}
+
 load_language () {
 	## Load localized strings AFTER english strings
 	## - if localized strings not found use english for default
